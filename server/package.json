@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "./src/server.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development && nodemon .",
-    "start": "cross-env NODE_ENV=production && node .",
+    "dev": "cross-env NODE_ENV=development nodemon .",
+    "start": "cross-env NODE_ENV=production node .",
     "test": "cross-env NODE_ENV=test jest --testTimeout=5000"
   },
   "keywords": [],
