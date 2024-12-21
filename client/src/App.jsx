@@ -1,14 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import Header from './components/header/header'
+import {Button} from "react-bootstrap"
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <h1>LTIM Quick Migrate</h1>
+      <Header />
+      <h1 className=''>LTIM Quick Migrate</h1>
+      <button type='button' className='btn btn-primary'>Primary button</button>
+      <Button variant='success'>Success</Button>
     </>
   )
 }
