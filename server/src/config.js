@@ -4,5 +4,6 @@ module.exports = {
     MONGO_HOST: process.env.MONGO_HOST,
     MONGO_USERNAME: process.env.MONGO_USERNAME,
     MONGO_PASSWORD: process.env.MONGO_PASSWORD,
-    MONGO_DBNAME: process.env.MONGO_DBNAME
+    MONGO_DBNAME: process.env.MONGO_DBNAME,
+    JWT_SECRET: process.env.JWT_SECRET
 }

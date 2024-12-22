@@ -105,4 +105,60 @@ describe("Auth related Test Suite", () => {
 
         })
     });
+
+    describe("/login API Test Suite", () => {
+        let registerEndpoint = "/api/v1/auth/register";
+        let loginEndpoint = "/api/v1/auth/login"
+        let payload = {
+            username: 'test1234',
+            firstName: "testFirstName",
+            lastName: "testLastName",
+            email: 'test@mail.com',
+            password: 'password123',
+            confirmPassword: 'password123'
+        }
+
+        let connection;
+
+        beforeAll(async () => {
+            connection = await mongoose.connect(globalThis.__MONGO_URI__ + globalThis.__MONGO_DB_NAME__)
+        });
+
+        afterAll(async () => {
+            await connection.disconnect();
+        });
+
+        beforeEach(async () => {
+            await AuthUser.deleteMany({});
+            await request(app)
+                    .post(registerEndpoint)
+                    .send(payload)
+                    .set('Content-Type', 'application/json');
+        })
+
+        test("should give error response when invalid login details are provided", async () => {
+            const res = await request(app)
+                                .post(loginEndpoint)
+                                .send({
+                                    password: 'password123'
+                                })
+                                .set('Content-Type', 'application/json')
+            // console.log(res.body);
+            expect(res.status).toBe(400)
+            expect(res.body.errors).toHaveLength(1)
+            
+        })
+
+        test.only("POST /login request", async () => {
+            const res = await request(app)
+                                .post(loginEndpoint)
+                                .send({
+                                    username: 'test1234',
+                                    password: "password123"
+                                })
+                                .set("Content-Type", 'application/json')
+            
+        })
+
+    })
 })

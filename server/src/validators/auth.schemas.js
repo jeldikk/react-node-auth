@@ -12,6 +12,12 @@ const registerPayloadSchema = z.object({
     message: "password and confirmation password should match"
 });
 
+const loginPayloadSchema = z.object({
+    username: z.string().min(5).max(20),
+    password: z.string().min(8)
+})
+
 module.exports = {
-    registerPayloadSchema
+    registerPayloadSchema,
+    loginPayloadSchema
 }
