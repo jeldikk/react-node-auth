@@ -9,8 +9,10 @@ describe("Auth related Test Suite", () => {
         let endpoint = "/api/v1/auth/register";
         let payload = {
             username: 'test1234',
-            password: 'pass',
-            confirmPassword: 'pass'
+            firstName: "testFirstName",
+            lastName: "testLastName",
+            password: 'password123',
+            confirmPassword: 'password123'
         }
 
         let connection;
@@ -34,7 +36,7 @@ describe("Auth related Test Suite", () => {
                                 .set('Content-Type', 'application/json');
             
             expect(res.statusCode).toBe(400);
-            expect(res.body.errors).toHaveLength(5)
+            expect(res.body.errors).toHaveLength(1)
         });
 
         test("should return 201 status when body is valid", async () => {
@@ -50,6 +52,7 @@ describe("Auth related Test Suite", () => {
                                 .post(endpoint)
                                 .send(payload)
                                 .set('Content-Type', 'application/json');
+            // console.log(res.body)
             expect(res.statusCode).toBe(201);
             const authUser = await AuthUser.findById(res.body._id);
             expect(authUser).toBeDefined()
@@ -57,6 +60,49 @@ describe("Auth related Test Suite", () => {
             expect(authUser.firstName).toBe('testFirst');
             expect(authUser.lastName).toBe('testLast')
             
+        });
+
+        test("should have unique username values", async () => {
+            // set missing email
+            payload.email = "test@mail.com";
+
+            let res = await request(app)
+                                .post(endpoint)
+                                .send(payload)
+                                .set("Content-Type", "application/json");
+            expect(res.status).toBe(201);
+
+            payload.email = "test1@mail.com";
+            res = await request(app)
+                        .post(endpoint)
+                        .send(payload)
+                        .set('Content-Type', 'application/json');
+            // console.log(res.body)
+            expect(res.status).toBe(400);
+            expect(res.body.errors[0].message).toMatch(/duplicate key error/i);
+            expect(res.body.errors[0].message).toMatch(/index: username_1 dup key/i)
+        });
+
+        test('should have unique email value', async () => {
+            
+            payload.email = "test@mail.com";
+
+            let res = await request(app)
+                                .post(endpoint)
+                                .send(payload)
+                                .set("Content-Type", "application/json");
+            expect(res.status).toBe(201);
+
+            payload.username = "test_username";
+            res = await request(app)
+                        .post(endpoint)
+                        .send(payload)
+                        .set('Content-Type', 'application/json');
+            // console.log(res.body)
+            expect(res.status).toBe(400);
+            expect(res.body.errors[0].message).toMatch(/duplicate key error/i)
+            expect(res.body.errors[0].message).toMatch(/index: email_1 dup key/i)
+
         })
     });
 })
