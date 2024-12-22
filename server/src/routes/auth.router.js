@@ -1,19 +1,16 @@
 const express = require('express');
 const { StatusCodes } = require('http-status-codes');
 const validatePayloadMiddleware = require('../middlewares/validate-payload.middleware');
-const {registerPayloadSchema} = require("../validators/auth.schemas")
+const {registerPayloadSchema} = require("../validators/auth.schemas");
+const authController = require("../controllers/auth.controller")
+const AuthUser = require("../models/auth-user.model");
+
 
 const authRouter = express.Router();
 
 authRouter
     .route("/register")
-    .post(validatePayloadMiddleware(registerPayloadSchema), async (req, res) => {
-        const body = req.body;
-
-        console.log({body});
-
-        res.status(StatusCodes.CREATED).json({...body})
-    })
+    .post(validatePayloadMiddleware(registerPayloadSchema), authController.registerUser);
 
 
 

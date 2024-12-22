@@ -7,6 +7,8 @@ describe("registerPayload Validation TestSuite", () => {
         let actual;
         const payload = {
             email: 'abc@mail.com',
+            firstName: "testFirst",
+            lastName: "lastFirst",
             password: 'abcd12345',
             confirmPassword: "abcd12345"
         };
@@ -24,13 +26,15 @@ describe("registerPayload Validation TestSuite", () => {
 
         payload.username = 'test1234';
         actual = validatePayloadSchema(registerPayloadSchema, payload)
-        console.log(JSON.stringify(actual))
+        // console.log(JSON.stringify(actual))
         expect(actual.success).toBe(true)
     });
 
     test("email field validations", () => {
         let payload = {
             username: 'test1234',
+            firstName: "testFirst",
+            lastName: "testLast",
             password: 'password1234',
             confirmPassword: 'password1234'
         };
@@ -50,6 +54,8 @@ describe("registerPayload Validation TestSuite", () => {
     test("password field validations", () => {
         let payload = {
             username: 'test1234',
+            firstName: "testFirst",
+            lastName: "testLast",
             email: 'test@mail.com',
             confirmPassword: 'test12345'
         };
@@ -69,6 +75,8 @@ describe("registerPayload Validation TestSuite", () => {
     test("confirmPassword field validations", () => {
         let payload = {
             username: 'test1234',
+            firstName: "testFirst",
+            lastName: "testLast",
             email: 'test@mail.com',
             password: 'test12345'
         };
@@ -86,16 +94,3 @@ describe("registerPayload Validation TestSuite", () => {
     });
 
 });
-
-describe.only("Some More tests For Experimentation", () => {
-    test('ValidationError toJSON returning errors', () => {
-        const payload = {
-            username: 'abc',
-            email: 'test',
-            confirmPassword: 'test'
-        };
-
-        const actual = validatePayloadSchema(registerPayloadSchema, payload);
-        console.log(JSON.stringify(actual, null, 2))
-    })
-})

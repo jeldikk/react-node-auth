@@ -5,10 +5,12 @@ dotenv.config({
 });
 const config = require("./config");
 const app = require("./app");
+const {dbConnect} = require("./database/mongo.database")
 
 const PORT = config.PORT;
 
-function runServer(){
+async function runServer(){
+    await dbConnect();
     app.listen(PORT, () => {
         console.log("Listening server on port ", PORT)
     })
