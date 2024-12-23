@@ -1,7 +1,30 @@
 import { Button, Col, Form, Row } from "react-bootstrap";
 
 export default function RegisterComponent(){
-    return (<Form>
+
+    const registerHandler = (event) => {
+        event.preventDefault();
+
+        const payload = {
+            firstName: 'Kamal', 
+            lastName: "Jeldi", 
+            email: 'jeldikk@mail.com', 
+            username: 'jeldikk', 
+            password: 'password123', 
+            confirmPassword: 'password123'
+        }
+
+        fetch("/api/v1/auth/register", {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        })
+        .then((res) => res.json())
+        .then((body) => {
+            console.log({body})
+        })
+    }
+
+    return (<Form onSubmit={registerHandler}>
             <Row className="mb-3">
                 <Form.Group as={Col} controlId="registerForm.firstName">
                     <Form.Label className="fw-bold">First Name</Form.Label>

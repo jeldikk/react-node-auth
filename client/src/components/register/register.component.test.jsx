@@ -1,5 +1,6 @@
 import {render, screen} from "@testing-library/react"
 import RegisterComponent from "./register.component"
+import userEvent from "@testing-library/user-event";
 
 describe("Register Component Test Suite", () => {
 
@@ -25,5 +26,15 @@ describe("Register Component Test Suite", () => {
         expect(confirmPassword).toBeInTheDocument();
 
         expect(submitBtn).toBeInTheDocument();
+    });
+
+    test.only("sends a request when clicked on submit button", async () => {
+        const user = userEvent.setup();
+
+        render(<RegisterComponent />);
+
+        const registerBtn = screen.getByRole('button', {name: 'Register'});
+
+        await user.click(registerBtn);
     })
 })
