@@ -19,7 +19,13 @@ async function registerUser(req, res) {
             password: body.password,
             confirmPassword: body.confirmPassword
         })
-        res.status(StatusCodes.CREATED).json(authUser)
+        res.status(StatusCodes.CREATED).json({
+            id: authUser.id,
+            username: authUser.username,
+            email: authUser.email,
+            firstName: authUser.firstName,
+            lastName: authUser.lastName
+        })
     }
     catch(err){
         throw new BadRequestError(err.message);
@@ -63,6 +69,7 @@ async function loginUser(req, res){
 
 async function logoutUser(req, res){
     res.session = null;
+    res.clearCookie('session-token');
     res.status(StatusCodes.OK).json({})
 }
 
