@@ -9,7 +9,11 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ["./tests/setup.js", "./src/setupTests.js"],
     testMatch: ['./src/**/*.test.tsx'],
-    css: true
+    css: true,
+    coverage: {
+      provider: 'v8',
+      reporter: ["text", "json", "html"]
+    }
   },
   server: {
     proxy: {
