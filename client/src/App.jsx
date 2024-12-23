@@ -1,4 +1,5 @@
-import {Routes, Route, Navigate} from 'react-router-dom'
+import {Routes, Route} from 'react-router-dom'
+import { Spinner } from 'react-bootstrap'
 import './App.css'
 import Header from './components/header/header'
 import HomePage from './pages/home/home.page'
@@ -15,7 +16,16 @@ function App() {
 
   const authDetails = useAuthDetailsContext();
 
-  console.log(authDetails)
+  if(authDetails.loading){
+    return (
+      <div className='vh-100 vw-100 d-flex justify-content-center align-items-center'>
+        <Spinner animation="grow" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </div>
+    )
+    
+  }
 
   return (
     <>

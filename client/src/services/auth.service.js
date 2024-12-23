@@ -80,4 +80,11 @@ export async function registerUser(details){
 export async function validateUser(){
     // here we will send a request to /auth/validate on load
     // and see if token is valid
+    const res = await fetch("/api/v1/auth/current-user");
+    const body = await res.json();
+
+    return {
+        status: res.ok,
+        body
+    }
 }
