@@ -1,6 +1,7 @@
 const express = require('express');
 const { StatusCodes } = require('http-status-codes');
 const validatePayloadMiddleware = require('../middlewares/validate-payload.middleware');
+const validateUserMiddleware = require("../middlewares/validate-user.middleware");
 const {registerPayloadSchema, loginPayloadSchema} = require("../validators/auth.schemas");
 const authController = require("../controllers/auth.controller")
 
@@ -18,6 +19,10 @@ authRouter
 authRouter
     .route('/logout')
     .post(authController.logoutUser)
+
+authRouter
+    .route("/current-user")
+    .get(validateUserMiddleware, authController.getCurrentUser)
 
 
 

@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { loginUser, logoutUser } from "../services/auth.service";
+import { loginUser, logoutUser, validateUser } from "../services/auth.service";
 import { useNavigate } from "react-router-dom";
 
 /**
@@ -24,17 +24,19 @@ export function AuthDetailsContextProvider({children}){
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState(null);
 
-    // useEffect(() => {
-    //     // if(user && Object.keys(user).length > 0){
-    //     //     setIsAuthenticated(true)
-    //     // }
-    //     if(user === null){
-    //         setIsAuthenticated(false)
-    //     }
-    //     else{
-    //         setIsAuthenticated(true)
-    //     }
-    // }, [user])
+    useEffect(() => {
+        setLoading(true)
+        validateUser()
+            .then((data) => {
+                if(data.status){
+                    setIsAuthenticated(true)
+                    setUser(data.body)
+                }
+            })
+            .finally(() => {
+                setLoading(false)
+            })
+    }, [])
 
     const login = async (username, password) => {
         const {ok, body} = await loginUser(username, password);
@@ -49,13 +51,6 @@ export function AuthDetailsContextProvider({children}){
     };
 
     const updateUser = (user) => {
-        // if(user && Object.keys(user).length > 0){
-        //     setUser(user);
-        // }
-        // else if(user === null){
-        //     setUser(null);
-        // }
-
         if(user === null){
             setUser(null);
             setIsAuthenticated(false)

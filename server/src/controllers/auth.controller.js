@@ -61,6 +61,18 @@ async function loginUser(req, res){
     }
 }
 
+function getCurrentUser(req, res){
+    const user = req.currentUser
+    if(!user){
+        throw NotAuthenticatedError("Not Authenticated");
+    }
+    else{
+        res.status(StatusCodes.OK).json({
+            ...user
+        })
+    }
+}
+
 async function logoutUser(req, res){
     res.session = null;
     res.status(StatusCodes.OK).json({})
@@ -69,5 +81,6 @@ async function logoutUser(req, res){
 module.exports = {
     registerUser,
     loginUser,
+    getCurrentUser,
     logoutUser
 }
