@@ -6,6 +6,7 @@ import AboutPage from './pages/about/about.page'
 import LoginPage from "./pages/login/login.page"
 import NotFoundPage from './pages/not-found'
 import DashboardPage from './pages/dashboard/dashboard.page'
+import RegisterPage from './pages/register/register.page'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Route path='/' element={<HomePage />} />
         <Route path='/about' element={<AboutPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path='/dashboard' element={<DashboardPage />} />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
