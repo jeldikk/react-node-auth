@@ -38,7 +38,6 @@ async function loginUser(req, res){
         const {username, password} = body;
         const authUser = await AuthUser.findOne({username});
         const passwordMatched = await comparePassword(password, authUser.password);
-        console.log({passwordMatched});
         if(passwordMatched){
             // create JWT token
             const token = jwt.sign(

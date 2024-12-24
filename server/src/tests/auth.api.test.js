@@ -167,7 +167,7 @@ describe("Auth related Test Suite", () => {
 
     });
 
-    describe.only("/current-user API Test suite", () => {
+    describe("/current-user API Test suite", () => {
         let registerEndpoint = "/api/v1/auth/register";
         let loginEndpoint = "/api/v1/auth/login";
         let currentUserEndpoint = "/api/v1/auth/current-user";
