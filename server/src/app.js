@@ -8,6 +8,7 @@ const clustersRouter = require("./routes/clusters.router");
 const authRouter = require("./routes/auth.router");
 const errorMiddleware = require("./middlewares/error-middleware.middleware");
 const NotFoundError = require("./errors/not-found.error");
+const migrationsRouter = require("./routes/migrations.router");
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use(
 app.use('/api/health', healthRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/clusters", clustersRouter);
+app.use("/api/v1/migrations", migrationsRouter);
 
 app.all("*", (req, res) => {
     throw new NotFoundError(`${req.url} not found on server`)

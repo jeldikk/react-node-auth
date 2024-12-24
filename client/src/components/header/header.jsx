@@ -25,6 +25,9 @@ export default function Header(){
                                 <Nav.Link>
                                     <Link to="/clusters">Clusters</Link>
                                 </Nav.Link>
+                                <Nav.Link>
+                                    <Link to="/migrations">Migrations</Link>
+                                </Nav.Link>
                             </> : null}
                         <Nav.Link>
                             <Link to="/about">About</Link>

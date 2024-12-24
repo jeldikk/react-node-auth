@@ -11,6 +11,7 @@ import RegisterPage from './pages/register/register.page'
 import { useAuthDetailsContext } from './hooks/auth-details.hook'
 import ClustersPage from './pages/clusters/clusters.page'
 import ProtectedRoute from './components/protected-route/protected-route.component'
+import MigrationsPage from './pages/migrations/migrations.page'
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path='/dashboard' element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
         <Route path='/clusters' element={<ProtectedRoute><ClustersPage /></ProtectedRoute>} />
+        <Route path='/migrations' element={<ProtectedRoute><MigrationsPage /></ProtectedRoute>} />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </>
