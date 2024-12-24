@@ -3,6 +3,11 @@ const app = require("../app");
 const mongoose = require("mongoose");
 const AuthUser = require('../models/auth-user.model');
 
+
+jest.mock("../config", () => ({
+    JWT_SECRET: 'some-test-jwt-secret'
+}))
+
 describe("Auth related Test Suite", () => {
 
     describe("/register API Test Suite", () => {
@@ -160,5 +165,62 @@ describe("Auth related Test Suite", () => {
             
         })
 
+    });
+
+    describe.only("/current-user API Test suite", () => {
+        let registerEndpoint = "/api/v1/auth/register";
+        let loginEndpoint = "/api/v1/auth/login";
+        let currentUserEndpoint = "/api/v1/auth/current-user";
+
+        let registerPayload = {
+            username: 'test1234',
+            firstName: "testFirstName",
+            lastName: "testLastName",
+            email: "test@mail.com",
+            password: 'password123',
+            confirmPassword: 'password123'
+        }
+
+        let loginPayload = {
+            username: registerPayload['username'],
+            password: registerPayload['password']
+        }
+
+        let connection;
+
+        beforeAll(async () => {
+            connection = await mongoose.connect(globalThis.__MONGO_URI__ + globalThis.__MONGO_DB_NAME__)
+        });
+
+        afterAll(async () => {
+            await connection.disconnect();
+        });
+
+        beforeEach(async () => {
+            await AuthUser.deleteMany({})
+        });
+
+        test("register user -> login user -> read cookie -> get current user using cookie", async () => {
+            await request(app)
+                    .post(registerEndpoint)
+                    .send(registerPayload)
+                    .set('Content-Type', 'application/json');
+
+            const loginRes = await request(app)
+                                    .post(loginEndpoint)
+                                    .send(loginPayload)
+                                    .set('Content-Type', 'application/json');
+
+            const sessionCookie = loginRes.headers['set-cookie'][0].split(';')[0];
+            console.log({sessionCookie})
+            const currentUserRes = await request(app)
+                                        .get(currentUserEndpoint)
+                                        .set('Cookie', sessionCookie)
+            // console.log(currentUserRes);
+            expect(currentUserRes.status).toBe(200);
+            const body = currentUserRes.body;
+            expect(body.email).toBe('test@mail.com');
+            expect(body.username).toBe('test1234');
+        });
     })
 })

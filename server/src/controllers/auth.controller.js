@@ -40,7 +40,6 @@ async function loginUser(req, res){
         const passwordMatched = await comparePassword(password, authUser.password);
         console.log({passwordMatched});
         if(passwordMatched){
-            console.log("Password Matched")
             // create JWT token
             const token = jwt.sign(
                 { id: authUser._id, email: authUser.email, username: authUser.username },
@@ -58,7 +57,6 @@ async function loginUser(req, res){
             })
         }
         else{
-            console.log("password did not match")
             throw new Error("User is not Authenticated")
         }
     }
