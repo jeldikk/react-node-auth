@@ -1,5 +1,5 @@
 // import styles from "./header.module";
-import {Navbar, Container, Nav, NavDropdown} from "react-bootstrap"
+import {Navbar, Container, Nav} from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { useAuthDetailsContext } from "../../hooks/auth-details.hook";
 
@@ -8,9 +8,9 @@ export default function Header(){
     const authDetails = useAuthDetailsContext();
 
     return <header>
-        <Navbar expand="lg" className="bg-body-tertiary">
+        <Navbar expand="md" className="bg-body-tertiary">
             <Container>
-                <Navbar.Brand href="/">LTIM K8s</Navbar.Brand>
+                <Navbar.Brand href="/">LTIM QuickMigrate</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbar-nav" />
                 <Navbar.Collapse id="navbar-nav" className="justify-content-end">
                     <Nav>
