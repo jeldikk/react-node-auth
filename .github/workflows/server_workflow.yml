@@ -8,9 +8,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
-              run: actions/checkout@v4
+              uses: actions/checkout@v4
             - name: Install NodeJs
-              run: actions/setup-node@v5
+              uses: actions/setup-node@v5
             - name: Print Node Version
               run: node -v
             - name: Print NPM Version
