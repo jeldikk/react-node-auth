@@ -16,8 +16,10 @@ jobs:
             - name: Print NPM Version
               run: npm -v
             - name: Navigate to Server Directory
-              run: cd server
-            - name: List Files in Server Directory
-              run: ls -la
+              run: |
+                  pwd
+                  cd ./server
+                  pwd
+                  ls -la
             - name: Install Dependencies
               run: npm install
