@@ -1,0 +1,23 @@
+name: First sample workflow
+on: workflow_dispatch
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
+
+            - name: Run a one-line script
+              run: echo "Hello, World!"
+
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
+
+            - name: Run a multi-line script
+              run: |
+                  echo "This is a multi-line script."
+                  echo "It runs several commands."
+                  echo "Goodbye, World!"
