@@ -17,5 +17,7 @@ jobs:
               run: npm -v
             - name: Navigate to Server Directory
               run: cd server
+            - name: List Files in Server Directory
+              run: ls -la
             - name: Install Dependencies
-              run: npm ci
+              run: npm install
