@@ -26,7 +26,7 @@ jobs:
                   ls -la
             - name: Install Dependencies
               run: npm install
-            - name: After running npm install
-              run: |
-                  pwd
-                  ls -la
+            - name: Run Tests
+              run: npm test
+            - name: Run script to get coverage
+              run: npm run test:coverage
