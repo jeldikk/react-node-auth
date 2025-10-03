@@ -24,3 +24,7 @@ jobs:
                   ls -la
             - name: Install Dependencies
               run: npm install
+            - name: After running npm install
+              run: |
+                  pwd
+                  ls -la
