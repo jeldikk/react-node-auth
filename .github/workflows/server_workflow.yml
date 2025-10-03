@@ -43,13 +43,29 @@ jobs:
               uses: actions/setup-node@v5
             - name: Print github context
               run: echo "${{ toJson(github) }}"
-            - name: Print env context
-              run: echo "${{ toJson(env) }}"
-            - name: Print vars context
-              run: echo "${{ toJson(vars) }}"
+
+    misc2:
+        needs: "test"
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./server
+        steps:
             - name: Print job context
               run: echo "${{ toJson(job) }}"
             - name: Print steps context
               run: echo "${{ toJson(steps)}}"
             - name: Print secrets context
               run: echo "${{ toJson(secrets)}}"
+
+    level3:
+        needs: ["misc", "misc2"]
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./server
+        steps:
+            - name: Print env context
+              run: echo "${{ toJson(env) }}"
+            - name: Print vars context
+              run: echo "${{ toJson(vars) }}"
